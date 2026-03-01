@@ -33,9 +33,11 @@ function buscarEndereco(numCEP) {
             const endereco = dados;
             if (endereco.code) {
                 console.log("G");
-                if (mapa){
+                if (mapa) {
                     mapa.remove();
                     mapa = null;
+                    document.querySelector('#map').style.border = "none";
+                    document.querySelector('#map').style.background = "none";
                 }
                 console.log(endereco.message);
                 mostrarErro(endereco.message);

@@ -13,7 +13,7 @@ function buscarCEP() {
         console.log("B")
         resultado.innerHTML = "Digite um CEP válido!";
         return
-    } 
+    }
 
     buscarEndereco(validacaoCEP);
 }
@@ -29,13 +29,33 @@ function buscarEndereco(numCEP) {
             const endereco = dados;
             console.log(endereco);
             mostrarEndereco(endereco);
+            console.log(endereco.lat, endereco.lng);
+            mostrarMapa(endereco.lat, endereco.lng)
         })
-        .catch (() => {
+        .catch(() => {
             resultado.innerHTML = "Endereço não encontrado!";
         });
 }
 
 function mostrarEndereco(busca) {
     console.log("E");
-    resultado.innerHTML =  JSON.stringify(busca);
+    resultado.innerHTML = `
+    <p>
+    Endereço: ${busca.address},
+    Bairro: ${busca.district},
+    Cidade: ${busca.city}-${busca.state}
+    </p>
+    `;
+}
+
+function mostrarMapa(lat, long) {
+    let mapa = L.map('map').setView([lat, long], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 16,
+        minZoom: 10,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(mapa);
+
+    L.marker([lat, long]).addTo(mapa);
 }

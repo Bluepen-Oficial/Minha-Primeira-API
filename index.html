@@ -12,18 +12,32 @@
     <!-- JS Mapa -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <label for="receber CEP" id="tituloCep">Insira seu CEP abiaxo:</label><br>
-    <input type="text" placeholder="00000-000" id="numCep" maxlength="9">
-    <button id="btnBuscar">Buscar</button>
+    <header>
+        <h1 id="titulo">Endereço Fácil 🗺️</h1>
+    </header>
+    <article>
+        <div id="container">
 
-    <div id="resultado"></div>
+            <label for="receber CEP" id="tituloCep">Insira seu CEP abiaxo:</label>
+            <div id="containerInput">
+                <input type="text" placeholder="00000-000" id="numCep" maxlength="9">
+                <button id="btnLimpar"><b>X</b></button>
+            </div>
+            <button id="btnBuscar"><b>Buscar</b></button>
 
-    <div id="map"></div>
-    <script src="script.js"></script>
+            <div id="resultado"></div>
+
+            <div id="map"></div>
+            <script src="script.js"></script>
+        </div>
+    </article>
+    <footer id="rodape">
+        <p>Dados de endereço fornecidos por AwesomeAPI | Mapas por © OpenStreetMap contributors via Leaflet | © 2026</p>
+    </footer>
 </body>
 
 </html>

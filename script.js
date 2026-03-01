@@ -1,19 +1,22 @@
 const numeroCEP = document.querySelector('#numCep');
 const resultado = document.querySelector('#resultado');
 const botao = document.querySelector('#btnBuscar');
+const btnLimpar = document.querySelector('#btnLimpar');
 const regex = /^\d{5}-?\d{3}$/;
 let mapa = null;
 
 botao.addEventListener('click', () => { buscarCEP() });
+btnLimpar.addEventListener('click', () => { numeroCEP.value = ""; });
 
 function buscarCEP() {
     const validacaoCEP = numeroCEP.value.replace(/[\s\-]/g, '').trim();
     console.log("A", validacaoCEP, validarExpressao(validacaoCEP));
 
     if (validacaoCEP === "" || validarExpressao(validacaoCEP) === false) {
-        console.log("B")
+        console.log("B");
         resultado.innerHTML = "Digite um CEP válido!";
-        return
+        numeroCEP.value = "";
+        return;
     }
 
     buscarEndereco(validacaoCEP);
@@ -36,6 +39,7 @@ function buscarEndereco(numCEP) {
                 }
                 console.log(endereco.message);
                 mostrarErro(endereco.message);
+                numeroCEP.value = "";
                 return;
             }
             console.log(endereco);
@@ -53,10 +57,10 @@ function buscarEndereco(numCEP) {
 function mostrarEndereco(busca) {
     console.log("E");
     resultado.innerHTML = `
-    <p>
-    Endereço: ${busca.address},
-    Bairro: ${busca.district},
-    Cidade: ${busca.city}-${busca.state}.
+    <p id="endereco">
+    <b>Endereço:</b> ${busca.address},
+    <b>Bairro:</b> ${busca.district},
+    <b>Cidade:</b> ${busca.city}-${busca.state}.
     </p>
     `;
 }
@@ -64,7 +68,7 @@ function mostrarEndereco(busca) {
 function mostrarErro(erro) {
     console.log("F");
     resultado.innerHTML = `
-    <p>
+    <p id="msgErro">
     ERRO: ${erro}.
     </p>
     `;
@@ -84,4 +88,6 @@ function mostrarMapa(lat, long) {
     }).addTo(mapa);
 
     L.marker([lat, long]).addTo(mapa);
+
+    document.querySelector('#map').style.border = "1px solid rgb(68, 0, 255)";
 }

@@ -16,6 +16,7 @@ function buscarCEP() {
         console.log("B");
         resultado.innerHTML = "Digite um CEP válido!";
         numeroCEP.value = "";
+        limparMapa();
         return;
     }
 
@@ -33,12 +34,9 @@ function buscarEndereco(numCEP) {
             const endereco = dados;
             if (endereco.code) {
                 console.log("G");
-                if (mapa) {
-                    mapa.remove();
-                    mapa = null;
-                    document.querySelector('#map').style.border = "none";
-                    document.querySelector('#map').style.background = "none";
-                }
+
+                limparMapa();
+
                 console.log(endereco.message);
                 mostrarErro(endereco.message);
                 numeroCEP.value = "";
@@ -92,4 +90,13 @@ function mostrarMapa(lat, long) {
     L.marker([lat, long]).addTo(mapa);
 
     document.querySelector('#map').style.border = "1px solid rgb(68, 0, 255)";
+}
+
+function limparMapa() {
+    if (mapa) {
+        mapa.remove();
+        mapa = null;
+        document.querySelector('#map').style.border = "none";
+        document.querySelector('#map').style.background = "none";
+    }
 }
